@@ -19,7 +19,8 @@ command! -range Transliterate <line1>,<line2>call <SID>Transliterate()
 
 fun! s:Transliterate()
   let input = getline('.')
-  let output = system("iconv -f utf8 -t latin1//translit", input)
+  let fenc = &fileencoding
+  let output = system("iconv -f ".fenc." -t latin1//translit", input)
   call setline('.', output)
 endfun
 
