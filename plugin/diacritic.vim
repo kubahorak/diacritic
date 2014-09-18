@@ -23,7 +23,7 @@ fun! s:DiacriticTranslit()
   if (fenc == "")
     let fenc = "utf-8"
   endif
-  let output = system("iconv -f ".fenc." -t latin1//translit", input)
+  let output = system("iconv -f ".fenc." -t ascii//translit", input)
   call setline('.', output)
 endfun
 
