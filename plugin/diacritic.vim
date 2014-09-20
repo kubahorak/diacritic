@@ -7,7 +7,9 @@ let s:keepcpo = &cpo
 set cpo&vim
 
 if !hasmapto('<Plug>Diacritic')
-  map <unique> <Leader>p <Plug>Diacritic
+  map <unique> <leader>p <Plug>Diacritic
+  nnoremap <leader>p :set operatorfunc=DiacriticOperator<cr>g@
+  vnoremap <leader>p :<c-u>call DiacriticOperator(visualmode())<cr>
 endif
 
 " keyboard mapping
@@ -25,6 +27,19 @@ fun! s:DiacriticTranslit()
   endif
   let output = system("iconv -f ".fenc." -t ascii//translit", input)
   call setline('.', output)
+endfun
+
+fun! DiacriticOperator(type)
+  if a:type ==# 'v'
+    execute "normal! `<v`>y"
+  elseif a:type ==# 'char'
+    execute "normal! `[v`]y"
+  else
+    return " TODO newline in search
+  endif
+
+  echom @@
+  " TODO fix code to work with the @@ selection
 endfun
 
 " put back the cpo
