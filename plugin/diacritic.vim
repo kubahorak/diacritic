@@ -2,9 +2,10 @@ if exists("g:loaded_diacritic") || &cp
   finish
 endif
 let g:loaded_diacritic = 1
-" save the cpo
+" Save the cpo
 let s:keepcpo = &cpo
 set cpo&vim
+
 
 " TODO the first noop mapping seems useless
 if !hasmapto('<Plug>Diacritic')
@@ -13,25 +14,21 @@ if !hasmapto('<Plug>Diacritic')
   vnoremap <leader>p :<c-u>call DiacriticOperator(visualmode(), 1)<cr>
 endif
 
-" keyboard mapping
+" Keyboard mapping
 map <silent> <unique> <script> <Plug>Diacritic
  \ :set lz<CR>:call <SID>DiacriticTranslit()<CR>:set nolz<CR>
 
-" range command
+" Range command
 command! -range DiacriticTranslit <line1>,<line2>call <SID>DiacriticTranslit()
 
-" range command function
+" Range command function
 fun! s:DiacriticTranslit()
   let input = getline('.')
-  let fenc = &fileencoding
-  if (fenc == "")
-    let fenc = "utf-8"
-  endif
-  let output = system("iconv -f ".fenc." -t ascii//translit", input)
+  let output = s:DiacriticTranslitIO(input)
   call setline('.', output)
 endfun
 
-" operator function
+" Operator function
 fun! DiacriticOperator(type, ...)
   let sel_save = &selection
   let &selection = "inclusive"
@@ -46,11 +43,7 @@ fun! DiacriticOperator(type, ...)
     silent exe "normal! `[v`]y"
   endif
 
-  let fenc = &fileencoding
-  if (fenc == "")
-    let fenc = "utf-8"
-  endif
-  let @@ = system("iconv -f ".fenc." -t ascii//translit", @@)
+  let @@ = s:DiacriticTranslitIO(@@)
 
   if a:0
     " To paste back to Visual mode, use gv command with block register.
@@ -68,6 +61,25 @@ fun! DiacriticOperator(type, ...)
   let @@ = reg_save
 endfun
 
-" put back the cpo
+" Transliterates input to output
+fun! s:DiacriticTranslitIO(input)
+  let fenc = &fileencoding
+  if (fenc == "")
+    let fenc = "utf-8"
+  endif
+  return s:system("iconv -f ".fenc." -t ascii//translit", a:input)
+endfun
+
+" System call wrapper. Ignores second argument if it's empty.
+fun! s:system(cmd, arg)
+  if strlen(a:arg) == 0
+    return system(a:cmd)
+  else
+    return system(a:cmd, a:arg)
+  endif
+endfun
+
+
+" Put back the cpo
 let &cpo = s:keepcpo
 unlet s:keepcpo
