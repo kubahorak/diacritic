@@ -1,4 +1,4 @@
-*diacritic.txt* remove diacritics by transliterating into latin alphabet
+*diacritic.txt* remove *diacritics* by transliterating into latin alphabet
 
                    |  __ \(_)               (_) | (_)      ~
                    | |  | |_  __ _  ___ _ __ _| |_ _  ___  ~
@@ -10,13 +10,13 @@
                    It's a perfect tool to remove diacritics.
 
 ==============================================================================
-CONTENTS                                                  *DiacriticsContents*
+CONTENTS                                                   *DiacriticContents*
 
-    1. Usage ................ |DiacriticsUsage|
-    2. License .............. |DiacriticsLicense|
-    3. Bugs ................. |DiacriticsBugs|
-    4. Contributing ......... |DiacriticsContributing|
-    5. Credits .............. |DiacriticsCredits|
+    1. Usage ................ |DiacriticUsage|
+    2. License .............. |DiacriticLicense|
+    3. Bugs ................. |DiacriticBugs|
+    4. Contributing ......... |DiacriticContributing|
+    5. Credits .............. |DiacriticCredits|
 
 ==============================================================================
 Section 1: Usage                                              *DiacriticUsage*
