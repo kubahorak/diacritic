@@ -13,6 +13,11 @@ Then the transliterated text without diacritics is:
 
     Prilis zlutoucky kun upel dabelske ody.
 
+Prerequisites
+-------------
+- **glibc** - GNU C library must be installed in the system.
+- Plugin is currently tested only on Linux.
+
 Installation
 ------------
 
