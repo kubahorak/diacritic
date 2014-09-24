@@ -2,7 +2,7 @@ Diacritic
 =========
 
 Vim plugin to transliterate from alphabet with diacritics into latin alphabet.
-Or put simply: it *removes diacritics*.
+Or put simply: it **removes diacritics**.
 
 Transliteration can be illustrated by the following example. Suppose you have a
 Czech text:
